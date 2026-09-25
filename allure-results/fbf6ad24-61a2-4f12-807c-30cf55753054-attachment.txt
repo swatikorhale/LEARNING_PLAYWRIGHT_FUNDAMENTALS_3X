@@ -1,0 +1,29 @@
+Number of Links:13
+Printing all the links...
+Login
+Register
+Forgotten Password
+My Account
+Address Book
+Wish List
+Order History
+Downloads
+Recurring Payments
+Reward Points
+Returns
+Transactions
+Newsletter
+Printing getattributes of all the links...
+#login
+#register
+#forgotten-password
+#my-account
+#address-book
+#wish-list
+#order-history
+#downloads
+#recurring-payments
+#reward-points
+#returns
+#transactions
+#newsletter
