@@ -1,0 +1,8 @@
+{
+  "vehicleName": "Xuv 7x",
+  "ownerName": "swati",
+  "regNumber": "MH12",
+  "vehicleType": "Sedan",
+  "year": "2015",
+  "notes": "It is my dream"
+}

@@ -1,0 +1,8 @@
+Main frame — practice playground
+total number of frames:3
+side
+side : Promise { <pending> }
+main
+main : Promise { <pending> }
+footer
+footer : Promise { <pending> }

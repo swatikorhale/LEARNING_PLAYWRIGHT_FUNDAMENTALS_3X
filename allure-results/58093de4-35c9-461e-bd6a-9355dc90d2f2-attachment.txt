@@ -1,0 +1,8 @@
+Main frame — practice playground
+total number of frames:3
+side
+side : locator('//frame').first().getByLabel('src')
+main
+main : locator('//frame').nth(1).getByLabel('src')
+footer
+footer : locator('//frame').nth(2).getByLabel('src')

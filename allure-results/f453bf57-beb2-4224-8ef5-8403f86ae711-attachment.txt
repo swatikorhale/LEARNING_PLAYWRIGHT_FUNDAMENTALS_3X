@@ -1,0 +1,15 @@
+{
+  "id": "circle-red",
+  "testid": "shape-circle-red",
+  "ariaLabel": "Red circle"
+}
+All bars with its height:
+Q1->42
+All bars with its height:
+Q2->64
+All bars with its height:
+Q3->78
+All bars with its height:
+Q4->92
+All bars with its height:
+Q5->56

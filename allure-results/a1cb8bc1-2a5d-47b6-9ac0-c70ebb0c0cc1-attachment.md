@@ -1,0 +1,113 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: 10_Frames\02_MultipleFrame.spec.ts >> Verify multiple frames
+- Location: tests\10_Frames\02_MultipleFrame.spec.ts:3:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: locator.innerText: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('main').contentFrame().locator('h2')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - iframe [ref=e2]:
+    - generic [ref=f1e1]:
+      - generic [ref=f1e2]: frame[name='side']
+      - heading "Sections" [level=3] [ref=f1e3]
+      - navigation "Side menu" [ref=f1e4]:
+        - list [ref=f1e5]:
+          - listitem [ref=f1e6]:
+            - link "Overview" [ref=f1e7] [cursor=pointer]:
+              - /url: ./main-frame.html
+          - listitem [ref=f1e8]:
+            - link "Vehicle registration" [ref=f1e9] [cursor=pointer]:
+              - /url: ./registration-form.html
+          - listitem [ref=f1e10]:
+            - link "Footer details" [ref=f1e11] [cursor=pointer]:
+              - /url: ./footer-frame.html
+      - paragraph [ref=f1e12]:
+        - text: This is the
+        - code [ref=f1e13]: side
+        - text: frame. Practise
+        - code [ref=f1e14]: page.frameLocator("[name='side']")
+        - text: and click links inside it.
+  - generic [ref=e3]:
+    - iframe [ref=e4]:
+      - generic [ref=f2e1]:
+        - generic [ref=f2e2]: frame[name='main']
+        - heading [level=2] [ref=f2e3]:
+          - text: Main frame —
+          - emphasis [ref=f2e4]: practice playground
+        - paragraph [ref=f2e5]:
+          - text: You're inside the
+          - code [ref=f2e6]: main
+          - text: "frame. Reach this heading with:"
+        - generic [ref=f2e7]: page.frameLocator("[name='main']").locator('h2').innerText()
+        - list [ref=f2e8]:
+          - listitem [ref=f2e9]:
+            - text: The frame's name attribute is
+            - code [ref=f2e10]: main
+            - text: .
+          - listitem [ref=f2e11]:
+            - text: The src is
+            - code [ref=f2e12]: ./main-frame.html
+            - text: .
+          - listitem [ref=f2e13]:
+            - text: "Other frames in the set:"
+            - code [ref=f2e14]: side
+            - text: ","
+            - code [ref=f2e15]: footer
+            - text: .
+    - iframe [ref=e5]:
+      - generic [ref=f3e1]:
+        - generic [ref=f3e2]: frame[name='footer']
+        - generic [ref=f3e3]:
+          - generic [ref=f3e4]:
+            - strong [ref=f3e6]: The Testing Academy
+            - text: · Frame practice
+          - generic [ref=f3e7]: ·
+          - generic [ref=f3e8]:
+            - text: 3 frames ·
+            - code [ref=f3e9]: main
+            - text: /
+            - code [ref=f3e10]: side
+            - text: /
+            - code [ref=f3e11]: footer
+          - generic [ref=f3e12]: ·
+          - generic [ref=f3e13]: © 2026 — local build
+```
+
+# Test source
+
+```ts
+  1  | import{test,expect, FrameLocator} from '@playwright/test'
+  2  | 
+  3  | test("Verify multiple frames",async({page})=>
+  4  | {
+  5  |       await page.goto("https://app.thetestingacademy.com/playwright/frames/multi-frames");
+  6  | 
+  7  |       //find the title of mainframe
+  8  |          let mainframe: FrameLocator =await page.frameLocator("main");
+> 9  |          const headerText=await mainframe.locator("h2").innerText();
+     |                                                         ^ Error: locator.innerText: Test timeout of 30000ms exceeded.
+  10 |          console.log(headerText);
+  11 | 
+  12 | }
+  13 | )
+```

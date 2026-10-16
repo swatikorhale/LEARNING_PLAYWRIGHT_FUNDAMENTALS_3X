@@ -1,0 +1,100 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: 11_keyboard_Mouse_Alert\06_JSAlerts.spec.ts >> Verify js Alerts >> JS Alert Accept 1
+- Location: tests\11_keyboard_Mouse_Alert\06_JSAlerts.spec.ts:9:9
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded while running "beforeEach" hook.
+```
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://the-internet.herokuapp.com/javascript_alerts", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '@playwright/test'
+  2  | 
+  3  | test.describe("Verify js Alerts", () => {
+  4  |     //before each test case it will open url
+  5  |     test.beforeEach(async ({ page }) => {
+> 6  |         await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+     |                    ^ Error: page.goto: Test timeout of 30000ms exceeded.
+  7  |     })
+  8  | 
+  9  |     test("JS Alert Accept 1", async ({ page }) => {
+  10 | 
+  11 |         page.once('dialog', async dialog => {
+  12 |             console.log("Alert Type:", dialog.type);
+  13 |             console.log("Alert Message:", dialog.message);
+  14 | 
+  15 |             expect(dialog.type).toBe("confirm");
+  16 |             expect(dialog.message).toBe("I am a JS Confirm");
+  17 | 
+  18 |             await dialog.accept();
+  19 | 
+  20 |         })
+  21 |         await page.getByRole('button', {
+  22 |             name: "Click for JS Confirm"
+  23 |         }).click();
+  24 |         await expect(page.locator("#result")).toHaveText("You successfully clicked an alert");
+  25 | 
+  26 |         //await page.pause();
+  27 |     });
+  28 | 
+  29 |     //accept and dismiss
+  30 |     test("JS Alert Accept 2", async ({ page }) => {
+  31 | 
+  32 |         page.once('dialog', async dialog => {
+  33 |             console.log("Alert Type:", dialog.type);
+  34 |             expect(dialog.type).toBe('alert');
+  35 | 
+  36 |             console.log("Alert Message:", dialog.message);
+  37 |             expect(dialog.message).toBe("I am a JS Alert");
+  38 | 
+  39 |             await dialog.accept();
+  40 |             //await dialog.dismiss();
+  41 |         });
+  42 |         await page.getByRole('button', { name: "Click for JS Alert" }).click();
+  43 |         await expect(page.locator("#result")).toHaveText("You clicked: Ok");
+  44 | 
+  45 |     });
+  46 | 
+  47 |     
+  48 |     test("JS Alert Accept 3", async ({ page }) => {
+  49 | 
+  50 |     const inputText = "Hello from Swati";
+  51 | 
+  52 |     page.once('dialog', async dialog => {
+  53 |         console.log("Dialog Type:", dialog.type);
+  54 |         console.log("Dialog Message:", dialog.message);
+  55 | 
+  56 |         expect(dialog.type).toBe("prompt");
+  57 |         expect(dialog.message).toBe("I am a JS prompt");
+  58 | 
+  59 |         await dialog.accept(inputText);
+  60 |     });
+  61 | 
+  62 |     await page.getByRole('button', {
+  63 |         name: "Click for JS Prompt"
+  64 |     }).click();
+  65 | 
+  66 |     await expect(page.locator("#result"))
+  67 |         .toHaveText(`You entered: ${inputText}`);
+  68 | });
+  69 | 
+  70 | });
+  71 | 
+```
