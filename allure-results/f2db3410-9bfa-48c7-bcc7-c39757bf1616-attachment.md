@@ -1,0 +1,57 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: 14_FileUpload\01_Fileupload_simple.spec.ts >> File Upload >> Verify the file upload
+- Location: tests\14_FileUpload\01_Fileupload_simple.spec.ts:13:9
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded while running "beforeEach" hook.
+```
+
+```
+Error: page.goto: net::ERR_TIMED_OUT at https://the-internet.herokuapp.com/upload
+Call log:
+  - navigating to "https://the-internet.herokuapp.com/upload", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | import{test,expect, Locator} from '@playwright/test'
+  2  | import path from 'path';
+  3  | 
+  4  | test.describe("File Upload", ()=>
+  5  | {
+  6  | 
+  7  |     test.beforeEach(async({page}) =>
+  8  |     {
+  9  |         const url="https://the-internet.herokuapp.com/upload";
+> 10 |         await page.goto(url);
+     |                    ^ Error: page.goto: net::ERR_TIMED_OUT at https://the-internet.herokuapp.com/upload
+  11 |     })
+  12 | 
+  13 |     test("Verify the file upload", async({page}) =>
+  14 |     {
+  15 |         //path of the file-you should know
+  16 | 
+  17 |          const filepath=path.join(__dirname,'abc.txt');
+  18 |          console.log(filepath);
+  19 | 
+  20 |          await page.locator("#file-upload").setInputFiles([filepath]);
+  21 |          await page.getByRole("button",{name:'Upload'}).click();
+  22 |          expect(page.locator("#uploaded-files")).toContainText('abc.txt');
+  23 |          await page.pause();
+  24 | 
+  25 |     }
+  26 |     )
+  27 |    
+  28 | })
+```
